@@ -1,0 +1,341 @@
+﻿@{
+    ViewBag.Title = "Tạo đơn hàng";
+}
+
+<div>
+    <h4>Tạo đơn hàng</h4>
+    @Html.ActionLink("Danh sách đơn hàng", "Index", new { }, new { @class = "mt-2 btn btn-outline-dark" })
+    @Html.ActionLink("Tạo khách hàng", "Create", "Customer", new { redirectUrl = Url.Action() }, new { @class = "mt-2 btn btn-outline-dark" })
+    <hr>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="mb-3 form-floating customer_search">
+            <input class="form-control" name="qCustomer" autocomplete="off" type="text" placeholder="">
+            <label>Tìm kiếm khách hàng</label>
+            <div class="customer" style="display: none; z-index: 1;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tên khách hàng</th>
+                            <th>Số điện thoại</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="row ">
+            <div class="col-sm-6">
+                <div>Tên khách hàng: </div>
+                <div>Số điện thoại:</div>
+                <div>Email: </div>
+                <div>Địa chỉ: </div>
+            </div>
+            <div class="col-sm-6 output_customer d-flex flex-column align-items-end">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="mb-3">
+            <div class="form-floating w-100 product_search">
+                <input type="text" class="form-control" name="qProduct" autocomplete="off" placeholder="Nhập tên điện thoại">
+                <label for="">Tìm kiếm điện thoại</label>
+                <div class="product" style="display: none;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá sản phẩm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <div class="product_output">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                            <th>Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-7"></div>
+            <div class="col-sm-5">
+                <div class="mb-3 d-flex align-content-between justify-content-between">
+                    <label for="" class="form-label">Tạm tính:</label>
+                    <input type="text" value="0 ₫" class="form-control-alternative provisional_price" style="text-align: center;" disabled>
+                </div>
+                <div class="mb-3 d-flex align-content-between justify-content-between">
+                    <label for="" class="form-label">Giảm giá:</label>
+                    <div class="d-flex">
+                        <div class="form-check" style="margin-right: 15px;">
+                            <input class="form-check-input" type="radio" name="discount" value="percent" id="discount-percent">
+                            <label class="form-check-label" for="discount-percent">
+                                %
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="discount" value="money" id="discount-money">
+                            <label class="form-check-label" for="discount-money">
+                                Tiền
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-3">
+                    <input type="number" class="form-control-alternative discount_input" disabled style="text-align: center;">
+                </div>
+                <div class="mb-3 d-flex align-content-between justify-content-between">
+                    <label for="" class="form-label">Tiền trả trước:</label>
+                    <input type="number" class="form-control-alternative paid-money" style="text-align: center;">
+                </div>
+                <div class="mb-3 d-flex align-content-between justify-content-between">
+                    <label for="" class="form-label">Tổng cộng:</label>
+                    <input type="text" value="0 ₫" class="form-control-alternative total_price" style="text-align: center;" disabled>
+                </div>
+                <div class="mb-3 d-flex">
+                    <button class="btn btn-outline-dark w-100 order">Tạo đơn hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var timeoutCustomer;
+        var timeoutProduct;
+        var CustomerId;
+        var productOrders = [];
+
+        $(".paid-money").on("input", function(e) {
+        })
+
+        $("input[name=qCustomer]").on("focus", function (e) {
+            $(".customer").css("display", "block");
+        })
+
+        $("input[name=qProduct]").on("focus", function (e) {
+            $(".product").css("display", "block");
+        })
+
+        window.onclick = function (e) {
+            if (!e.target.closest(".customer") && !e.target.closest("input[name=qCustomer]")) {
+                $(".customer").css("display", "none");
+                $("input[name=qCustomer]").blur();
+            }
+            if (!e.target.closest(".product") && !e.target.closest("input[name=qProduct]")) {
+                $(".product").css("display", "none");
+                $("input[name=qProduct]").blur();
+            }
+        }
+
+        $("input[name=qCustomer]").on("input", function () {
+            $(".customer>table>tbody").html("");
+
+            if (timeoutCustomer) clearTimeout(timeoutCustomer);
+            timeoutCustomer = setTimeout(() => { SelectCustomer($(this).val()); }, 500);
+        })
+
+        $("input[name=qProduct]").on("input", function () {
+            $(".product>table>tbody").html("");
+
+            if (timeoutProduct) clearTimeout(timeoutProduct);
+            timeoutProduct = setTimeout(() => { SelectProduct($(this).val()); }, 500);
+        })
+
+        function LoadCart() {
+            let provisional = 0;
+            let total = -1;
+            $(".product_output>table>tbody").html("")
+            for(var productOrder of productOrders) {
+                let product = productOrder.product;
+                let quantity = productOrder.quantity
+                provisional += (product.ProductPrice * quantity);
+                $(".product_output>table>tbody").append(
+                    `
+                            <tr>
+                            <td>${product.ProductName.toUpperCase()}</td>
+                            <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.ProductPrice)}</td>
+                            <td>
+                                <input class="form-control" type="number" value="${quantity}" min=0 max=100>
+                            </td>
+                            <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.ProductPrice * quantity)}</td>
+                            <td>
+                                <buttom class="btn btn-outline-danger btn-remove-product" data-ProductId="${product.ProductId}">Xoá</button>
+                            </td>
+                        </tr>
+                    `
+                )
+            }
+
+            if(total < provisional) total = provisional;
+            switch($('input[name=discount]:checked').val()) {
+                case "percent":
+                    if($(".discount_input").val() > 100 || $(".discount_input").val() <= 0) $(".discount_input").val("");
+                    total = (provisional * (100 - $(".discount_input").val()) / 100);
+                    break;
+                case 'money':
+                    if($(".discount_input").val() <= 0 || $(".discount_input").val() > provisional) $(".discount_input").val("");
+                    total = provisional - $(".discount_input").val();
+                    break;
+            }
+
+            $(".total_price").val(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(total))
+            $(".provisional_price").val(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(provisional))
+        }
+
+        function SelectProduct(queryProduct) {
+            $.get(
+                "/api/admin/order/checkproduct",
+                {
+                    queryProduct
+                },
+                function (res) {
+                    res = JSON.parse(res);
+                    var products = res.datas;
+                    $(".product>table>tbody").html("");
+                    for (var product of products) {
+                        $(".product>table>tbody").append(
+                            `
+                                <tr id="${product.ProductId}">
+                                    <td>${product.ProductName.toUpperCase()}</td>
+                                    <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.ProductPrice)}</td>
+                                </tr>
+                            `
+                        )
+                    }
+
+                    document.querySelectorAll(".product>table>tbody>tr").forEach(tr => {
+                        tr.onclick = function (e) {
+                            $(".product").css("display", "none")
+                            for (var product of products) {
+                                if ($(this).attr("id") === product.ProductId
+                                && !productOrders.some(po => po.product.ProductId === product.ProductId)) productOrders.push({
+                                    quantity: 1,
+                                    product
+                                });
+                                else if($(this).attr("id") === product.ProductId) {
+                                    productOrders.forEach((p , i) => {
+                                        if(p.product.ProductId === product.ProductId) {
+                                            p.quantity += 1;
+                                        }
+                                    })
+                                }
+                            }
+
+                            LoadCart();
+                        }
+                    });
+                }
+            )
+        }
+
+        $(".product_output>table>tbody").click(function (e) {
+            if(e.target.closest(".btn-remove-product")) {
+                let ProductId = $(e.target).data("ProductId");
+                productOrders.forEach((p, i) => {
+                    if(ProductId === p.product.ProductId ) productOrders.splice(i, 1);
+                })
+                LoadCart();
+            }
+        })
+
+        function SelectCustomer(queryCustomer) {
+            $.get(
+                "/api/admin/order/checkcustomer",
+                {
+                    queryCustomer
+                },
+                function (res) {
+                    res = JSON.parse(res);
+                    var customers = res.datas;
+                    $(".customer>table>tbody").html("");
+                    for (var customer of customers) {
+                        $(".customer>table>tbody").append(
+                            `
+                                <tr id="${customer.CustomerId}">
+                                    <td>${customer.CustomerName}</td>
+                                    <td>${customer.CustomerPhone}</td>
+                                </tr>
+                            `
+                        )
+                    }
+
+                    document.querySelectorAll(".customer>table>tbody>tr").forEach(tr => {
+                        tr.onclick = function (e) {
+                            $(".customer").css("display", "none");
+                            for (var customer of customers) {
+                                if ($(this).attr('id') === customer.CustomerId) {
+                                    CustomerId = customer.CustomerId;
+                                    $(".output_customer").html(
+                                        `
+                                                <div>${customer.CustomerName}</div>
+                                                <div>${customer.CustomerPhone}</div>
+                                                <div>${customer.CustomerEmail}</div>
+                                                <div>${customer.CustomerAddress}</div>
+                                            `
+                                    )
+                                }
+                            }
+                        }
+                    })
+                }
+            )
+        }
+
+        $("input[name=discount]").change(function (e) {
+            if(this.checked) $(".discount_input").attr("disabled", false)
+            LoadCart();
+        })
+
+        $(".discount_input").on("input", function (e) {
+            LoadCart();
+        })
+
+        $(".order").click(function (e) {
+            if(!CustomerId) StatusMessage(false, "Tạo hoá đơn không thành công", "Chưa chọn khách hàng");
+            else if(productOrders.length <= 0) StatusMessage(false, "Tạo hoá đơn không thành công", "Giỏ hàng rỗng");
+            else {
+                $.post({
+                    url: "/api/admin/order/",
+                    data: {
+                        CustomerId,
+                        productOrders,
+                        discount: {
+                            discountType: $("input[name=discount]:checked").val(),
+                            discountQuantity: $(".discount_input").val()
+                        },
+                        paidMoney : Number($(".paid-money").val()) ? Number($(".paid-money").val()) : 0,
+                    },
+                    success: function(resSuccess) {
+                        let success = JSON.parse(resSuccess);
+                        window.location.href = "/admin/order/bill/" + success.Order.OrderId;
+                    },
+                    error: function(resError) {
+                        let error = JSON.parse(resError);
+                        StatusMessage(false, error.Title, error.Message);
+                    }
+                })
+            }
+        })
+    </script>
+}

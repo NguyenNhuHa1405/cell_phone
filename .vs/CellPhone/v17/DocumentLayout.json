@@ -1,0 +1,108 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Workspace\\CellPhone\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{996BBD00-1D39-4C80-8957-42F53B081FEC}|CellPhone\\CellPhone.csproj|d:\\workspace\\cellphone\\cellphone\\areas\\admin\\views\\order\\bill.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{996BBD00-1D39-4C80-8957-42F53B081FEC}|CellPhone\\CellPhone.csproj|solutionrelative:cellphone\\areas\\admin\\views\\order\\bill.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{996BBD00-1D39-4C80-8957-42F53B081FEC}|CellPhone\\CellPhone.csproj|d:\\workspace\\cellphone\\cellphone\\areas\\admin\\views\\order\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{996BBD00-1D39-4C80-8957-42F53B081FEC}|CellPhone\\CellPhone.csproj|solutionrelative:cellphone\\areas\\admin\\views\\order\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{996BBD00-1D39-4C80-8957-42F53B081FEC}|CellPhone\\CellPhone.csproj|d:\\workspace\\cellphone\\cellphone\\areas\\admin\\views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{996BBD00-1D39-4C80-8957-42F53B081FEC}|CellPhone\\CellPhone.csproj|solutionrelative:cellphone\\areas\\admin\\views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{996BBD00-1D39-4C80-8957-42F53B081FEC}|CellPhone\\CellPhone.csproj|d:\\workspace\\cellphone\\cellphone\\areas\\admin\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{996BBD00-1D39-4C80-8957-42F53B081FEC}|CellPhone\\CellPhone.csproj|solutionrelative:cellphone\\areas\\admin\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Bill.cshtml",
+              "DocumentMoniker": "D:\\Workspace\\CellPhone\\CellPhone\\Areas\\Admin\\Views\\Order\\Bill.cshtml",
+              "RelativeDocumentMoniker": "CellPhone\\Areas\\Admin\\Views\\Order\\Bill.cshtml",
+              "ToolTip": "D:\\Workspace\\CellPhone\\CellPhone\\Areas\\Admin\\Views\\Order\\Bill.cshtml",
+              "RelativeToolTip": "CellPhone\\Areas\\Admin\\Views\\Order\\Bill.cshtml",
+              "ViewState": "AQIAADwAAAAAAAAAAAAAAA8AAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-04T01:15:27.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CustomerController.cs",
+              "DocumentMoniker": "D:\\Workspace\\CellPhone\\CellPhone\\Areas\\Admin\\Controllers\\CustomerController.cs",
+              "RelativeDocumentMoniker": "CellPhone\\Areas\\Admin\\Controllers\\CustomerController.cs",
+              "ToolTip": "D:\\Workspace\\CellPhone\\CellPhone\\Areas\\Admin\\Controllers\\CustomerController.cs",
+              "RelativeToolTip": "CellPhone\\Areas\\Admin\\Controllers\\CustomerController.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-04T01:08:28.379Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Workspace\\CellPhone\\CellPhone\\Areas\\Admin\\Views\\Customer\\Index.cshtml",
+              "RelativeDocumentMoniker": "CellPhone\\Areas\\Admin\\Views\\Customer\\Index.cshtml",
+              "ToolTip": "D:\\Workspace\\CellPhone\\CellPhone\\Areas\\Admin\\Views\\Customer\\Index.cshtml",
+              "RelativeToolTip": "CellPhone\\Areas\\Admin\\Views\\Customer\\Index.cshtml",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAACoAAABZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-04T01:07:42.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Workspace\\CellPhone\\CellPhone\\Areas\\Admin\\Views\\Order\\Index.cshtml",
+              "RelativeDocumentMoniker": "CellPhone\\Areas\\Admin\\Views\\Order\\Index.cshtml",
+              "ToolTip": "D:\\Workspace\\CellPhone\\CellPhone\\Areas\\Admin\\Views\\Order\\Index.cshtml",
+              "RelativeToolTip": "CellPhone\\Areas\\Admin\\Views\\Order\\Index.cshtml",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-04T01:05:39.711Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

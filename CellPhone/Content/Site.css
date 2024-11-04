@@ -1,0 +1,93 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+}
+
+#toast {
+    width: auto;
+    position: fixed;
+    top: 30px;
+    right: 20px;
+    border-radius: 5px;
+    animation: toastsildein 0.5s ease, toastsildeout 0.5s 3s ease;
+    padding: 10px;
+}
+
+    #toast.success {
+        background-color: #b6f7c5;
+    }
+
+        #toast.success > .toast-body > i {
+            margin-right: 2px;
+            color: green;
+        }
+
+    #toast.error > .toast-body > i {
+        margin-right: 2px;
+        color: red;
+    }
+
+    #toast.error {
+        background-color: #feb7b7;
+    }
+
+@keyframes toastsildein {
+    from {
+        right: -100px;
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes toastsildeout {
+    to {
+        opacity: 0;
+    }
+}
+
+.action_wd {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(186, 243, 240, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.action_wd:not(.show) {
+    display: none;
+}
+
+.customer_search, .product_search {
+    position: relative;
+}
+
+.customer, .product {
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
+    border: 1px solid black;
+    border-top: 0;
+}

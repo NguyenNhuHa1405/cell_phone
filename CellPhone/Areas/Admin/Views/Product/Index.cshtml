@@ -1,0 +1,48 @@
+﻿@using CellPhone.Models
+@model CellPhone.Areas.Admin.Models.Product.ProductViewModel
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    var products = ViewBag.Products as List<Product>;
+    var cul = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div>
+    <h4>Danh sách sản phẩm</h4>
+    @Html.ActionLink("Tạo sản phẩm", "Create", new {}, new { @class = "mt-2 btn btn-outline-dark" })
+    <hr>
+</div>
+
+<table class="table">
+    <thead align="center">
+        <tr>
+            <th>@Html.DisplayNameFor(p => p.ProductName) </th>
+            <th>@Html.DisplayNameFor(p => p.ProductDescription)</th>
+            <th>@Html.DisplayNameFor(p => p.ProductPrice)</th>
+            <th>Slug</th>
+            <th>@Html.DisplayNameFor(p => p.CategoryId)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody align="center">
+        @if (products != null)
+        {
+            foreach (var product in products)
+            {
+                <tr>
+                    <td>@(product.ProductName)</td>
+                    <td>@(product.ProductDescription)</td>
+                    <td>@(product.ProductPrice.ToString("#,###0", cul.NumberFormat) + " ₫")</td>
+                    <td>@(product.ProductSlug)</td>
+                    @if (product.Category != null)
+                    {
+                        <td>@(product.Category.CategoryName)</td>
+                    }
+                    <td>
+                        <a class="text-black" href="@Url.Action("Edit", new { id = product.ProductId })"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a class="text-black" href="@Url.Action("Delete", new { id = product.ProductId })"><i class="fa-solid fa-ban"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

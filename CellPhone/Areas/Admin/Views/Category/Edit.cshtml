@@ -1,0 +1,60 @@
+﻿@using CellPhone.Areas.Admin.Models.Category
+@using CellPhone.Models
+@model CategoryViewModel
+@{
+    ViewBag.Title = "Chỉnh sửa danh mục";
+    var _context = new CellPhoneContext();
+    var categories = new List<Category>();
+    var categoryWithParentNulls = _context.Categories.Where(c => c.ParentCategory == null).ToList();
+    Category(categories, categoryWithParentNulls);
+    var selectListCategory = new SelectList(categories, "CategoryId", "CategoryName");
+}
+
+@{
+    void Category(List<Category> outputCategories, List<Category> inputCategories, int repeat = 0)
+    {
+        if (inputCategories != null)
+        {
+            foreach (var category in inputCategories)
+            {
+                if (Model.CategoryId == category.CategoryId) continue;
+                category.CategoryName = string.Concat(Enumerable.Repeat(" -- ", repeat)) + category.CategoryName;
+                outputCategories.Add(category);
+                Category(outputCategories, category.ChildCategories, repeat + 1);
+            }
+        }
+    }
+}
+
+<div>
+    <h4>Chỉnh sửa danh mục " @Model.CategoryName "</h4>
+    @Html.ActionLink("Danh sách danh mục", "Index", new { }, new { @class = "mt-2 btn btn-outline-dark" })
+    <hr>
+</div>
+
+<div>
+    @{
+        Html.BeginForm("Edit", "", FormMethod.Post);
+        <div class="col-sm-6">
+            <div class="form-floating mb-3">
+                @Html.TextBoxFor(c => c.CategoryName, new { @class = "form-control" })
+                @Html.LabelFor(c => c.CategoryName)
+                @Html.ValidationMessageFor(c => c.CategoryName, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-floating mb-3">
+                @Html.TextBoxFor(c => c.CategoryDescription, new { @class = "form-control" })
+                @Html.LabelFor(c => c.CategoryDescription)
+                @Html.ValidationMessageFor(c => c.CategoryDescription, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-floating mb-3">
+                @Html.DropDownListFor(c => c.ParentCategoryId, selectListCategory, "-- Chọn danh mục --", new { @class = "form-select" })
+                @Html.LabelFor(c => c.ParentCategoryId)
+                @Html.ValidationMessageFor(c => c.ParentCategoryId, "", new { @class = "text-danger" })
+            </div>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-outline-dark">Chỉnh sửa danh mục</button>
+            </div>
+        </div>
+        Html.EndForm();
+    }
+</div>

@@ -1,0 +1,33 @@
+﻿@using CellPhone.Areas.User.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Đăng nhập";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="flex-direction: column;">
+    <h4 class="m-4">@ViewBag.Title</h4>
+    <form class="w-25" method="post">
+        <div class="form-floating mb-3">
+            @Html.TextBoxFor(l => l.UserNameOrEmail, new { @class = "form-control" })
+            @Html.LabelFor(l => l.UserNameOrEmail)
+            @Html.ValidationMessageFor(l => l.UserNameOrEmail, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-floating mb-3">
+            @Html.PasswordFor(l => l.Password, new { @class = "form-control" })
+            @Html.LabelFor(l => l.Password)
+            @Html.ValidationMessageFor(l => l.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3 d-flex justify-content-end">
+            <span>
+                @Html.ActionLink("Quên mật khẩu ?", "Index", "ForgotPassword", new {}, new { @class = "text-black" })
+            </span>
+        </div>
+
+        <div class="d-flex">
+            <button style="flex: 1;" class="btn btn-outline-dark">Đăng nhập</button>
+        </div>
+    </form>
+</div>
+

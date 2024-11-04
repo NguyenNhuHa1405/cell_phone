@@ -1,0 +1,41 @@
+﻿@model List<CellPhone.Models.Role>
+@{
+    ViewBag.Title = "Quyền";
+}
+
+<div class="mb-3">
+    <h4>Danh sách quyền</h4>
+    @Html.ActionLink("Tạo quyền", "Create", new {}, new { @class = "btn btn-outline-dark" })
+    <hr>
+</div>
+
+<div>
+    <table class="table">
+        <thead align="center">
+            <tr>
+                <th>Tên hiển thị</th>
+                <th>Tên quyền</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody align="center">
+            @if (Model != null)
+            {
+                foreach (var role in Model)
+                {
+                    <tr>
+                        <td>@(role.Name)</td>
+                        <td>@(role.NormalizedName)</td>
+                        <td>
+                            @if (role.NormalizedName != CellPhone.Datas.RoleData.Admin)
+                            {
+                                @Html.ActionLink("Phạm vi truy cập", "Permission", new { id = role.Id }, new { @class = "btn btn-outline-dark" })
+                                @Html.ActionLink("Xoá", "Delete", new { id = role.Id }, new { @class = "btn btn-outline-danger" })
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,40 @@
+﻿@model CellPhone.Areas.User.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Đăng ký";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="flex-direction: column;">
+    <h4 class="m-4">Đăng ký</h4>
+    <form class="w-25" method="post">
+        <div class="mb-3 form-floating">
+            @Html.TextBoxFor(r => r.UserName, new { @class = "form-control" })
+            @Html.LabelFor(r => r.UserName)
+            @Html.ValidationMessageFor(r => r.UserName, "", new { @class = "text-danger" })
+        </div>
+        <div class="mb-3 form-floating">
+            @Html.TextBoxFor(r => r.Email, new { @class = "form-control", type="email" })
+            @Html.LabelFor(r => r.Email)
+            @Html.ValidationMessageFor(r => r.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="mb-3 form-floating">
+            @Html.PasswordFor(r => r.Password, new { @class = "form-control" })
+            @Html.LabelFor(r => r.Password)
+            @Html.ValidationMessageFor(r => r.Password, "", new { @class = "text-danger" })
+        </div>
+        <div class="mb-3 form-floating">
+            @Html.PasswordFor(r => r.ConfirmPassword, new { @class = "form-control" })
+            @Html.LabelFor(r => r.ConfirmPassword)
+            @Html.ValidationMessageFor(r => r.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3 d-flex justify-content-end">
+            <span>
+                @Html.ActionLink("Quên mật khẩu ?", "Index", "ForgotPassword", new { }, new { @class = "text-black" })
+            </span>
+        </div>
+
+        <div class="d-flex">
+            <button style="flex: 1;" class="btn btn-outline-dark">Đăng ký</button>
+        </div>
+    </form>
+</div>

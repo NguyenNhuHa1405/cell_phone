@@ -1,0 +1,24 @@
+@using Newtonsoft.Json
+@using CellPhone.Models
+@{
+    var statusMessage = JsonConvert.DeserializeObject<StatusMessageModel>(TempData["StatusMessage"] as string ?? "");
+}
+
+@if(statusMessage != null) {
+    var bg = statusMessage.Success ? "success" : "error";
+    var icon = statusMessage.Success ? "<i class='fa-solid fa-circle-check'></i>" : "<i class='fa-solid fa-circle-exclamation'></i>";
+    <div id="toast" class="@bg">
+        <div class="toast-body d-flex align-items-center">
+            @(Html.Raw(icon))
+            <div class=" d-flex" style="flex-direction: column; margin-left: 10px; justify-content: center;">
+                @(statusMessage.Title)
+                <span style="font-size: 12px;">@(statusMessage.Message)</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        setTimeout(() => {
+            $("#toast").remove();
+        }, 3400)
+    </script>
+}

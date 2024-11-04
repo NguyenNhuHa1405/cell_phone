@@ -1,0 +1,32 @@
+﻿@model CellPhone.Areas.User.Models.ResetPasswordViewModel
+@{
+    ViewBag.Title = "Đặt lại mật khẩu";
+}
+
+<div class="d-flex justify-content-center">
+    <form method="post">
+        <div class="d-flex align-items-center" style="flex-direction: column;">
+            <h4 class="mb-3">Đặt lại mật khẩu</h4>
+            <input asp-for="Token" hidden>
+            <div class="mb-3 form-floating">
+                @Html.TextBoxFor(f => f.Email, new { @class = "form-control", @readonly = "true" })
+                @Html.LabelFor(f => f.Email)
+                @Html.ValidationMessageFor(f => f.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3 form-floating">
+                @Html.PasswordFor(f => f.Password, new { @class = "form-control" })
+                @Html.LabelFor(f => f.Password)
+                @Html.ValidationMessageFor(f => f.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3 form-floating">
+                @Html.PasswordFor(f => f.ConfirmPassword, new { @class = "form-control" })
+                @Html.LabelFor(f => f.ConfirmPassword)
+                @Html.ValidationMessageFor(f => f.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+
+            <div>
+                <button class="btn btn-outline-dark">Tiếp tục</button>
+            </div>
+        </div>
+    </form>
+</div>

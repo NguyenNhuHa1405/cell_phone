@@ -1,0 +1,33 @@
+﻿@model CellPhone.Models.Role
+@{
+    ViewBag.Title = "Phạm vi của quyền";
+    var _context = new CellPhone.Models.CellPhoneContext();
+    var permissions = _context.Permissions.ToList();
+    var rolePermissions =_context.RolePermissions.Where(rp => rp.RoleId == Model.Id).ToList();
+}
+
+<div class="mb-3">
+    <h4>Phạm vi truy cập của: @(Model.NormalizedName)</h4>
+    @Html.ActionLink("Danh sách quyền", "Index", new {}, new { @class = "btn btn-outline-dark" })
+    <hr>
+</div>
+
+<div>
+    <form class="row" method="post">
+        <div class="col-sm-3">
+            @if (permissions != null)
+            {
+                foreach (var permission in permissions)
+                {
+                    var check = rolePermissions.Any(rp => rp.PermissonId == permission.PermissionId) ? "checked" : "";
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="@(permission.PermissionId)" @(check) name="PermissionIds" value="@(permission.PermissionId)">
+                        <label class="form-check-label" for="@(permission.PermissionId)">@(permission.PermissionName)</label>
+                    </div>
+                }
+            }
+
+            <button class="btn btn-outline-dark mt-3">Thêm phạm vi</button>
+        </div>
+    </form>
+</div>

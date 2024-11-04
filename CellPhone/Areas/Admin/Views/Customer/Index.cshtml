@@ -1,0 +1,55 @@
+﻿@model List<CellPhone.Models.Customer>
+@{
+    ViewBag.Title = "Danh sách khách hàng";
+    var cul = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="mb-3">
+    <h4>Danh sách khách hàng</h4>
+    @Html.ActionLink("Tạo khách hàng", "Create", new {}, new { @class = "btn btn-outline-dark" })
+    <hr>
+</div>
+
+<div>
+    <table class="table">
+        <thead align="center">
+            <tr>
+                <th>Tên khách hàng</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th>Tổng công nợ</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody align="center">
+            @if (Model != null)
+            {
+                foreach (var customer in Model)
+                {
+                    var orders = customer.Orders;
+                    var totalDebt = 0.0;
+                    if (orders != null)
+                    {
+                        foreach(var o in orders)
+                        {
+                            if (o.IsPayment) { totalDebt += o.Debt.Value; }
+                        }
+                    }
+
+                    <tr>
+                        <td>@(customer.CustomerName)</td>
+                        <td>@(customer.CustomerPhone)</td>
+                        <td>@(customer.CustomerEmail)</td>
+                        <td>@(totalDebt.ToString("#,###0", cul.NumberFormat) + " ₫")</td>
+                        <td>
+                            @if (orders.Any(o => o.Debt != 0))
+                            {
+                                <a class="btn btn-outline-dark">Thanh toán</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

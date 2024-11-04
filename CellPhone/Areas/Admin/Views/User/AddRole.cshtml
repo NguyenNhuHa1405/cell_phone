@@ -1,0 +1,37 @@
+﻿@using CellPhone.Models
+@model User
+@{
+    ViewBag.Title = "Phân quyền";
+    var _context = new CellPhoneContext();
+    var roles = _context.Roles.ToList();
+    var userRoles = _context.UserRoles.Where(ur => ur.UserId == Model.Id).ToList();
+}
+
+<div class="mb-3">
+    <h4>Phân quyền cho tài khoản: @(Model.UserName)</h4>
+    @Html.ActionLink("Danh sách tài khoản", "Index", new {}, new { @class = "btn btn-outline-dark" })
+    <hr>
+</div>
+
+<div>
+    @{
+        Html.BeginForm("AddRole", "", FormMethod.Post, new { });
+            <div class="col-sm-6">
+                @if (roles != null)
+                {
+                    foreach (var role in roles)
+                    {
+                        var check = userRoles.Any(ur => ur.RoleId == role.Id) ? "checked" : "";
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="@(role.Id)" name="RoleIds" value="@(role.Id)" @(check)>
+                            <label class="form-check-label" for="@(role.Id)">@(role.NormalizedName)</label>
+                        </div>
+                    }
+                }
+
+                <button class="btn btn-outline-dark mt-3">Thêm quyền</button>
+            </div>
+        Html.EndForm();
+    }
+</div>
+

@@ -1,0 +1,47 @@
+﻿@using CellPhone.Models
+@{
+    ViewBag.Title = "Danh sách tài khoản";
+    var users = ViewBag.Users as List<User>;
+}
+
+<div class="mb-3">
+    <h4>Danh sách tài khoản</h4>
+    @(Html.ActionLink("Tạo tài khoản", "Create", new {}, new { @class = "btn btn-outline-dark" }))
+    <hr>
+</div>
+
+<div>
+    <table class="table">
+        <thead align="center">
+            <tr>
+                <th>Tên đăng nhập</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Hoạt động</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody align="center">
+            @if (users != null)
+            {
+                foreach (var user in users)
+                {
+                    var active = user.Active ? "<i class='fa-regular fa-circle-check' style='color: green;''></i>" : "<i class='fa-regular fa-circle-xmark' style='color: #e21818;''></i>";
+                    <tr>
+                        <td>@(user.UserName)</td>
+                        <td>@(user.Email)</td>
+                        <td>@(user.PhoneNumber)</td>
+                        <td>@(user.Address)</td>
+                        <td align="center">@(Html.Raw(active))</td>
+                        <td>
+                            @Html.ActionLink("Thêm quyền", "AddRole", new { id = user.Id }, new { @class = "btn btn-outline-dark" })
+                            @Html.ActionLink("Sửa", "Edit", new { id = user.Id }, new { @class = "btn btn-outline-dark" })
+                            @Html.ActionLink("Xoá", "Delete", new { id = user.Id }, new { @class = "btn btn-outline-danger" })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

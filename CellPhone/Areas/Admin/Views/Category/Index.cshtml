@@ -1,0 +1,78 @@
+﻿@using CellPhone.Models
+@model Category
+@{
+    ViewBag.Title = "Danh mục danh mục";
+    var categories = ViewBag.Categories as List<Category>;
+}
+
+<div>
+    <h4>Danh mục danh mục</h4>
+    @Html.ActionLink("Tạo danh mục", "Create", new {}, new { @class = "mt-2 btn btn-outline-dark" })
+    <hr>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên danh mục</th>
+            <th>Mô tả</th>
+            <th>Slug</th>
+            <th>Danh mục cha</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (categories != null)
+        {
+            foreach (var category in categories)
+            {
+                <tr>
+                    <td>@(category.CategoryName)</td>
+                    <td>@(category.CategoryDescription)</td>
+                    <td>@(category.CategorySlug)</td>
+                    <td>@(category.ParentCategory != null ? category.ParentCategory.CategoryName : "")</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a class="text-black" href="@Url.Action("Edit", new { id = category.CategoryId })"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <div>
+                                <button class="text-black btn action-delete"><i class="fa-solid fa-trash-can"></i></button>
+                                <div class="action_wd">
+                                    <div class="bg-white action-choice" style="padding: 30px; padding-top: 50px; padding-bottom: 50px; border-radius: 15px;">
+                                        <h5 class="m-2" style="text-align: center;">
+                                            Có chắc chắn xoá danh mục
+                                            <span class="d-block">" @(category.CategoryName) " ?</span>
+                                        </h5>
+                                        <hr>
+                                        <div class="d-flex justify-content-center m-2">
+                                            @Html.ActionLink("Xoá", "Delete", new { id = category.CategoryId }, new { @class = "btn btn-outline-dark", style = "margin-right: 5px;" })
+                                            <span class="btn btn-outline-dark btn-delete">Huỷ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll(".action_wd").forEach(actionWd => {
+            $(actionWd).click(function(e) {
+                if(!e.target.closest(".action-choice") || e.target.closest(".btn-delete") && $(this).hasClass("show")) {
+                    $(this).removeClass("show");
+                }
+            })
+        })
+
+        document.querySelectorAll(".action-delete").forEach(actionDelete => {
+            $(actionDelete).click(function(e) {
+                $(this).next(".action_wd").addClass("show");
+            })
+        });
+    </script>
+}
+

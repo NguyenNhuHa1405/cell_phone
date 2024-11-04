@@ -1,0 +1,41 @@
+﻿@model CellPhone.Areas.Admin.Models.Customer.CustomerViewModel
+@{
+    ViewBag.Title = "Tạo khách hàng";
+    var redirectUrl = ViewBag.RedirectUrl as string;
+}
+
+<div>
+    <h4>Tạo khách hàng</h4>
+    @Html.ActionLink("Danh sách khách hàng", "Index", new { }, new { @class = "btn btn-outline-dark" })
+    <hr>
+</div>
+
+<div>
+    <form action="@Url.Action("Create", new { redirectUr = redirectUrl })" method="post" class="row" >
+        <div class="col-sm-12">
+            <div class="mb-3 form-floating">
+                @Html.TextBoxFor(c => c.CustomerName, new { @class = "form-control" })
+                @Html.LabelFor(c => c.CustomerName)
+                @Html.ValidationMessageFor(c => c.CustomerName, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3 form-floating">
+                @Html.TextBoxFor(c => c.CustomerPhone, new { @class = "form-control" })
+                @Html.LabelFor(c => c.CustomerPhone)
+                @Html.ValidationMessageFor(c => c.CustomerPhone, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3 form-floating">
+                @Html.TextBoxFor(c => c.CustomerEmail, new { @class = "form-control" })
+                @Html.LabelFor(c => c.CustomerEmail)
+                @Html.ValidationMessageFor(c => c.CustomerEmail, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-3 form-floating">
+                @Html.TextBoxFor(c => c.CustomerAddress, new { @class = "form-control" })
+                @Html.LabelFor(c => c.CustomerAddress)
+                @Html.ValidationMessageFor(c => c.CustomerAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-outline-dark w-100">Tạo khách hàng</button>
+        </div>
+    </form>
+</div>
